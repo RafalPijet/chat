@@ -4,5 +4,40 @@
     flex-direction: column;
     justify-content: flex-start;
     width: 75vw;
-    padding: 20px;
+    padding-left: 20px;
+}
+
+.User {
+    font-weight: bold;
+    color: #0984e3;
+    border-radius: 5px;
+    padding: 5px;
+    width: fit-content;
+    height: fit-content;
+    margin-right: 10px;
+}
+
+.Message {
+    background-color: #0984e3;
+    color: #fff;
+    width: fit-content;
+    padding: 10px 20px;
+    border-radius: 0 10px 10px 10px;
+    position: relative;
+    margin-top: 25px;
+}
+
+.Message::before {
+    position: absolute;
+    content: '';
+    background-color: #0984e3;
+    width: 12px;
+    height: 12px;
+    left: -6px;
+    top: 3px;
+    transform: rotate(-45deg);
+}
+
+.Content {
+    display: inline-flex;
 }
