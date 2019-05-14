@@ -1,10 +1,13 @@
 .MessageForm {
     display: flex;
     flex-direction: row;
+    width: inherit;
+    height: 12vh;
 }
 
 .MessageInput {
     flex: 1;
+    font-size: 14px;
     padding: 20px;
     border: 0;
     border-top: 1px solid #ccc;

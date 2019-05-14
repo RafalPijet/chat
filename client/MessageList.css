@@ -1,33 +1,40 @@
 .MessageList {
     flex: 1;
     display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    width: 75vw;
-    padding-left: 20px;
+    flex-direction: column-reverse;
+    padding: 0 20px;
+    height: 80vh;
+    overflow: scroll;
 }
 
-.User {
+.MessageListLeft {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.MessageListRight {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.UserLeft {
     font-weight: bold;
     color: #0984e3;
     border-radius: 5px;
     padding: 5px;
-    width: fit-content;
-    height: fit-content;
     margin-right: 10px;
 }
 
-.Message {
+.MessageLeft {
     background-color: #0984e3;
     color: #fff;
-    width: fit-content;
     padding: 10px 20px;
     border-radius: 0 10px 10px 10px;
     position: relative;
     margin-top: 25px;
 }
 
-.Message::before {
+.MessageLeft::before {
     position: absolute;
     content: '';
     background-color: #0984e3;
@@ -38,6 +45,35 @@
     transform: rotate(-45deg);
 }
 
+.UserRight {
+    font-weight: bold;
+    color: #00b894;
+    border-radius: 5px;
+    padding: 5px;
+    margin-left: 10px;
+}
+
+.MessageRight {
+    background-color: #00b894;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 10px 0 10px 10px;
+    position: relative;
+    margin-top: 25px;
+}
+
+.MessageRight::after {
+    position: absolute;
+    content: '';
+    background-color: #00b894;
+    width: 12px;
+    height: 12px;
+    right: -6px;
+    top: 3px;
+    transform: rotate(-45deg);
+}
+
 .Content {
     display: inline-flex;
 }
+

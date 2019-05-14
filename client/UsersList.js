@@ -6,14 +6,18 @@ const UsersList = props => (
         <div className={styles.UsersOnline}>
             {props.users.length} people online
         </div>
+        <p className={styles.UserItemMain}>{props.name}</p>
         <ul className={styles.UsersList}>
             {
                 props.users.map((user) => {
-                    return (
-                        <li key={user.id} className={styles.UserItem}>
-                            {user.name}
-                        </li>
-                    )
+
+                    if (user.name !== props.name) {
+                        return (
+                            <li key={user.id} className={styles.UserItem}>
+                                {user.name}
+                            </li>
+                        )
+                    }
                 })
             }
         </ul>

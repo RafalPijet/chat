@@ -19,8 +19,18 @@
 }
 
 .UserItem {
+    color: #00b894;
     list-style: none;
     border-bottom: 1px solid #ccc;
     padding: 20px;
-    margin: 0 0 0 20px;
+    margin: 0;
+}
+
+.UserItemMain {
+    color: #0984e3;
+    font-weight: 600;
+    list-style: none;
+    border-bottom: 1px solid #ccc;
+    padding: 20px;
+    margin: 0;
 }

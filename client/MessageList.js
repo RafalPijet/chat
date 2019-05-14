@@ -7,7 +7,7 @@ const MessageList = props => (
         {
             props.messages.map((message, i) => {
                 return (
-                    <Message key={i} from={message.from} text={message.text}/>
+                    <Message key={i} i={i} from={message.from} text={message.text} isRight={message.isRight}/>
                 );
             })
         }
