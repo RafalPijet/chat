@@ -16,13 +16,15 @@ class App extends Component {
             users: [],
             messages: [],
             text: '',
-            name: ''
+            name: '',
+            check: true
         }
     }
 
     componentDidMount() {
         socket.on('message', message => this.messageReceive(message));
         socket.on('update', ({users}) => this.chatUpdate(users));
+        socket.on('check', ({check}) => this.setState({check}));
     }
 
     messageReceive(message) {
@@ -41,8 +43,30 @@ class App extends Component {
     }
 
     handleUserSubmit(name) {
-        this.setState({name});
-        socket.emit('join', name);
+        socket.emit('ask');
+        socket.on('answer', users => {
+
+            if (users.length > 0) {
+                users.map(user => {
+
+                    if (user.name !== this.state.name && this.state.check && user.name === name) {
+                        let newName = name + Math.floor(Math.random() * 1000);
+                        this.setState({
+                            name: newName,
+                            check: false
+                        });
+                    } else if (this.state.check) {
+                        this.setState({
+                            name,
+                            check: false
+                        });
+                    }
+                });
+            } else {
+                this.setState({name});
+            }
+        });
+        setTimeout(() => socket.emit('join', this.state.name), 1);
     }
 
     render() {
@@ -65,13 +89,13 @@ class App extends Component {
                     <div className={styles.MessageWrapper}>
                         <MessageList messages={this.state.messages}/>
                         <MessageForm onMessageSubmit={message => this.handleMessageSubmit(message)}
-                            name={this.state.name}/>
+                                     name={this.state.name}/>
                     </div>
                 </div>
             </div>
         )
     }
-    
+
     renderUserForm() {
         return (<UserForm onUserSubmit={name => this.handleUserSubmit(name)}/>)
     }

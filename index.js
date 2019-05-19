@@ -16,6 +16,12 @@ app.get('/', (req, res) => {
 });
 
 io.on('connection', socket => {
+    
+    socket.on('ask', () => {
+        let users = usersService.getAllUsers();
+        io.emit('answer', users);
+    });
+    
     socket.on('join', name => {
         usersService.addUser({
             id: socket.id,
@@ -24,7 +30,11 @@ io.on('connection', socket => {
         io.emit('update', {
             users: usersService.getAllUsers()
         });
+        console.log(`ilość: ${usersService.getAllUsers().length}`);
+        console.log(usersService.getAllUsers());
+        setTimeout(() => io.emit('check', {check: true}), 10);
     });
+    
     socket.on('disconnect', () => {
         usersService.removeUser(socket.id);
         socket.broadcast.emit('update', {
