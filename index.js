@@ -30,9 +30,6 @@ io.on('connection', socket => {
         io.emit('update', {
             users: usersService.getAllUsers()
         });
-        console.log(`ilość: ${usersService.getAllUsers().length}`);
-        console.log(usersService.getAllUsers());
-        setTimeout(() => io.emit('check', {check: true}), 10);
     });
     
     socket.on('disconnect', () => {

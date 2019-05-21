@@ -17,14 +17,13 @@ class App extends Component {
             messages: [],
             text: '',
             name: '',
-            check: true
+            check: false
         }
     }
 
     componentDidMount() {
         socket.on('message', message => this.messageReceive(message));
         socket.on('update', ({users}) => this.chatUpdate(users));
-        socket.on('check', ({check}) => this.setState({check}));
     }
 
     messageReceive(message) {
@@ -45,20 +44,23 @@ class App extends Component {
     handleUserSubmit(name) {
         socket.emit('ask');
         socket.on('answer', users => {
+            let isExist = false;
+            users.map(user => {
+                user.name === name ? isExist = true : []
+            });
 
-            if (users.length > 0) {
+            if (isExist) {
                 users.map(user => {
 
-                    if (user.name !== this.state.name && this.state.check && user.name === name) {
+                    if (user.name !== this.state.name && user.name === name && !this.state.check) {
                         let newName = name + Math.floor(Math.random() * 1000);
                         this.setState({
                             name: newName,
-                            check: false
+                            check: true
                         });
-                    } else if (this.state.check) {
+                    } else if (user.name !== name && this.state.name === name && this.state.check) {
                         this.setState({
-                            name,
-                            check: false
+                            name
                         });
                     }
                 });
@@ -66,7 +68,7 @@ class App extends Component {
                 this.setState({name});
             }
         });
-        setTimeout(() => socket.emit('join', this.state.name), 1);
+        setTimeout(() => socket.emit('join', this.state.name), 10);
     }
 
     render() {
